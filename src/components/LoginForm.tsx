@@ -1,12 +1,10 @@
-import type { FormEvent } from "react";
+"use client";
 
-import { NextPage } from "next";
-import { useState } from "react";
-import { useRouter } from "next/router";
+import {useRouter} from "next/navigation";
+import {FormEvent, useState} from "react";
+import {login} from "@/utils";
 
-import { login } from "@/utils";  // 上記で実装したファイル
-
-const LoginPage: NextPage = () => {
+export const LoginForm = () => {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -48,5 +46,3 @@ const LoginPage: NextPage = () => {
     </div>
   );
 };
-
-export default LoginPage;
