@@ -1,36 +1,42 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Next.js App Router and Firebase Authentication with Cookie
 
-## Getting Started
+Next.js
+をちゃんとするならセッションベースで認証できるのが好ましいと聞いたので、とっても[わかりやすい記事](https://zenn.dev/uttk/articles/f48fc75120f018)
+を参考にしてサンプルを書いてみました。
 
-First, run the development server:
+ついでに App Router にも入門。
+
+## セットアップ
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+pnpm i
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 起動
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+pnpm dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## ポイント
 
-## Learn More
+### セッションと Cookie への理解
 
-To learn more about Next.js, take a look at the following resources:
+セッションはログイン状態を保持するための仕組みです。
+今回のケースだと Firebase Authentication がセッションの情報を保持しています。
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### セッション ID
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+ユーザーがブラウザを使ってログインするとセッションが開始されます。
+そのタイミングでセッション ID が発行されます。
 
-## Deploy on Vercel
+### セッション ID と Cookie
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+セッション ID は Cookie に保存されます。
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Cookie には
+
+* ブラウザ・サーバーの両方で読み書きできる
+* 他のページに遷移したり、ページを閉じしてもブラウザに保持される
+
+という性質があるので、セッション ID を Cookie に保存することでブラウザはログイン状態を維持することができます。
